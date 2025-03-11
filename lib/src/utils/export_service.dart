@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:ffmpeg_kit_flutter_video/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_video/ffmpeg_kit_config.dart';
-import 'package:ffmpeg_kit_flutter_video/ffmpeg_session.dart';
-import 'package:ffmpeg_kit_flutter_video/return_code.dart';
-import 'package:ffmpeg_kit_flutter_video/statistics.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_session.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
+import 'package:ffmpeg_kit_flutter/statistics.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ExportService {
@@ -56,8 +56,9 @@ class ExportService {
     return FFmpegKit.executeWithArgumentsAsync(
       command,
       (session) async {
-        final state =
-            FFmpegKitConfig.sessionStateToString(await session.getState());
+        final state = FFmpegKitConfig.sessionStateToString(
+          await session.getState(),
+        );
         final code = await session.getReturnCode();
 
         if (ReturnCode.isSuccess(code)) {
@@ -66,7 +67,8 @@ class ExportService {
           if (onError != null) {
             onError(
               Exception(
-                  'FFmpeg process exited with state $state and return code $code.\n${await session.getOutput()}'),
+                'FFmpeg process exited with state $state and return code $code.\n${await session.getOutput()}',
+              ),
               StackTrace.current,
             );
           }
@@ -90,13 +92,14 @@ class ExportService {
       '-i', videoPath,
       '-vf', "subtitles=$subtitlePath",
       '-y', // Add this flag to overwrite the existing file
-      outputPath
+      outputPath,
     ]; // log('FFmpeg start process with command = ${execute.command}');
     return FFmpegKit.executeWithArgumentsAsync(
       command,
       (session) async {
-        final state =
-            FFmpegKitConfig.sessionStateToString(await session.getState());
+        final state = FFmpegKitConfig.sessionStateToString(
+          await session.getState(),
+        );
         final code = await session.getReturnCode();
 
         if (ReturnCode.isSuccess(code)) {
@@ -105,7 +108,8 @@ class ExportService {
           if (onError != null) {
             onError(
               Exception(
-                  'FFmpeg process exited with state $state and return code $code.\n${await session.getOutput()}'),
+                'FFmpeg process exited with state $state and return code $code.\n${await session.getOutput()}',
+              ),
               StackTrace.current,
             );
           }
