@@ -3,8 +3,7 @@ description: "A video subtitle editing library that includes subtitle generation
  subtitle export, and related UI components."
 version: 1.0.2
 homepage: https://github.com/wxkly8888/video_subtitle_editor
-
-
+publish_to: none
 environment:
   sdk: '>=3.4.3 <4.0.0'
   flutter: ">=1.17.0"
